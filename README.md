@@ -17,6 +17,7 @@ Before you begin, you must have Python installed on your machine. If you don't h
 2. Installing the libraries
 Once you have Python, you can easily install the required libraries using pip - the Python package installer. Open your terminal or command prompt and type:
     - pip install numpy pandas scikit-learn
+      
 This command installs the three libraries: numpy, pandas, and scikit-learn.
 
 3. Running the program
