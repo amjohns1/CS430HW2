@@ -1,3 +1,11 @@
+##########################################################
+# Class: CS 430/530
+# Assignment: Homework 2
+# Team Number: 10
+# Team Members: Adam Barr, Adam Johnson, Scott Petty
+# Date: 10/1/2023
+##########################################################
+
 # importing the required module 
 import os
 import numpy as np
