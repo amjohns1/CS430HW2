@@ -62,23 +62,7 @@ def training_gradient_descent(X, y, learning_rate, stopping_threshold):
         # Updating theta
         theta -= learning_rate * gradient
      
-    return theta
-
-# validate data using cost function
-def validate_data(X, y, theta):
-    # Add a column of ones to X for the intercept term
-    X = np.column_stack((np.ones(X.shape[0]), X))
-
-    # make y conform to the correct shape
-    y = y.values.ravel()
-    
-    # Making predictions
-    y_predicted = np.dot(X, theta)
-    
-    # Calculating the current cost
-    current_cost = mean_squared_error(y, y_predicted)
-
-    return current_cost
+    return theta, current_cost
 
 # find new thetas using normal equations and calculate the new cost
 def normal_equation(X, y, theta):
@@ -127,35 +111,37 @@ def main():
     X_train, X_test, Y_train, Y_test = train_test_split(x_nox_two, y_nox, test_size=0.1, random_state=0)
     x_train_normalized = normalize_features(X_train)
     x_test_normalized = normalize_features(X_test)
-    thetas_2a = training_gradient_descent(x_train_normalized, Y_train, 0.01, 1e-6)
-    thetas_2a, squared_error_2a = normal_equation(x_test_normalized, Y_test, thetas_2a)
+    thetas_2a, squared_error_2a = training_gradient_descent(x_train_normalized, Y_train, 0.01, 1e-6)
+    thetas_2a_normal, squared_error_2a_normal = normal_equation(x_test_normalized, Y_test, thetas_2a)
 
     # 2b
     X_train, X_test, Y_train, Y_test = train_test_split(x_nox_all, y_nox, test_size=0.1, random_state=0)
     x_train_normalized = normalize_features(X_train)
     x_test_normalized = normalize_features(X_test)
-    thetas_2b = training_gradient_descent(x_train_normalized, Y_train, 0.01, 1e-6)
-    squared_error_2b = validate_data(x_test_normalized, Y_test, thetas_2b)
+    thetas_2b,squared_error_2b = training_gradient_descent(x_train_normalized, Y_train, 0.01, 1e-6)
 
     # 2c
     X_train, X_test, Y_train, Y_test = train_test_split(x_medv_two, y_medv, test_size=0.1, random_state=0)
     x_train_normalized = normalize_features(X_train)
     x_test_normalized = normalize_features(X_test)
-    thetas_2c = training_gradient_descent(x_train_normalized, Y_train, 0.01, 1e-6)
-    thetas_2c, squared_error_2c = normal_equation(x_test_normalized, Y_test, thetas_2c)
+    thetas_2c, squared_error_2c = training_gradient_descent(x_train_normalized, Y_train, 0.01, 1e-6)
+    thetas_2c_normal, squared_error_2c_normal = normal_equation(x_test_normalized, Y_test, thetas_2c)
 
     # 2d
     X_train, X_test, Y_train, Y_test = train_test_split(x_medv_all, y_medv, test_size=0.1, random_state=0)
     x_train_normalized = normalize_features(X_train)
     x_test_normalized = normalize_features(X_test)
-    thetas_2d = training_gradient_descent(x_train_normalized, Y_train, 0.01, 1e-3)
-    squared_error_2d = validate_data(x_test_normalized, Y_test, thetas_2d)
+    thetas_2d, squared_error_2d = training_gradient_descent(x_train_normalized, Y_train, 0.01, 1e-3)
 
     # print to output file
+    print("PART I:", file=open('output.txt', 'a'))
     print("2A Thetas:\n", thetas_2a, "\nSquared error: ", squared_error_2a, file=open('output.txt', 'a'))
     print("\n2B Thetas:\n", thetas_2b, "\nSquared error: ", squared_error_2b, file=open('output.txt', 'a'))
     print("\n2C Thetas:\n", thetas_2c, "\nSquared error: ", squared_error_2c, file=open('output.txt', 'a'))
     print("\n2D Thetas:\n", thetas_2d, "\nSquared error: ", squared_error_2d, file=open('output.txt', 'a'))
+    print("\n\nPART II: ", file=open('output.txt', 'a'))
+    print("2A Thetas, using normal equation: \n", thetas_2a_normal, "\nSquared error: ", squared_error_2a_normal, file=open('output.txt', 'a'))
+    print("\n2C Thetas, using normal equation: \n", thetas_2c_normal, "\nSquared error: ", squared_error_2c_normal, file=open('output.txt', 'a'))
 
     # remove cleaned-up input file
     if os.path.exists("boston_cleaned.csv"):
