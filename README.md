@@ -3,10 +3,10 @@ This program is a linear regression implementation on the Boston housing dataset
 
 Prerequisites
 You will need the following libraries:
-os
-numpy
-pandas
-sklearn
+- os
+- numpy
+- pandas
+- sklearn
 
 Make sure the input dataset boston.txt is in the same directory as the main program.
 
